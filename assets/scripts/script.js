@@ -14,6 +14,17 @@ let batu = document.getElementById('batu')
 let gunting = document.getElementById('gunting')
 let kertas = document.getElementById('kertas')
 
+// mendapatkan skor tersimpan di local storage
+if (localStorage.getItem('skorKen')) {
+    skorKen = localStorage.getItem('skorKen')
+    displaySkorKen.innerHTML = skorKen
+}
+
+if (localStorage.getItem('skorPlayer')) {
+    skorPlayer = localStorage.getItem('skorPlayer')
+    displaySkorPlayer.innerHTML = skorPlayer
+}
+
 // start game button event
 startGame.addEventListener('click', () => {
     splashScreen.style.top = '120vh'
@@ -40,6 +51,8 @@ reset.addEventListener('click', () => {
         skorPlayer = 0
         displaySkorKen.innerHTML = skorKen
         displaySkorPlayer.innerHTML = skorPlayer
+        // membersihkan skor yang tersimpan di local storage
+        localStorage.clear()
     }
 })
 
@@ -97,11 +110,15 @@ function result(who) {
     switch (who) {
         case 'ken':
             skorKen++
+            // untuk menyimpan skor Ken di local storage
+            localStorage.setItem('skorKen', skorKen)
             displaySkorKen.innerHTML = skorKen
             console.log('Ninja Ken menang')
             break
         case 'player':
             skorPlayer++
+            // untuk menyimpan skor player di local storage
+            localStorage.setItem('skorPlayer', skorPlayer)
             displaySkorPlayer.innerHTML = skorPlayer
             console.log('Anda menang')
             break
